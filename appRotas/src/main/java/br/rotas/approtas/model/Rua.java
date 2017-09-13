@@ -14,7 +14,17 @@ public class Rua {
     private int id;
     private String nome;
     private String CEP;
+    private Cidade cidade;
 
+    public Rua(){} 
+    
+    public Rua(int id, String nome, int idCidade){
+        this.id = id;
+        this.nome = nome;
+        this.cidade = new Cidade();
+        cidade.setId(idCidade);
+    }
+    
     public Rua(int id, String nome){
         this.id = id;
         this.nome = nome;
@@ -64,6 +74,20 @@ public class Rua {
      */
     public void setCEP(String CEP) {
         this.CEP = CEP;
+    }
+
+    /**
+     * @return the cidade
+     */
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    /**
+     * @param cidade the cidade to set
+     */
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
     
     

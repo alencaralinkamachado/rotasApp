@@ -8,6 +8,18 @@ package br.rotas.approtas.model;
 /**
  *
  * @author alencarmachado
+ * 
+ * 
+ ﻿create table cidade (
+id_cidade serial,
+nome_cidade varchar(100) not null,
+latitude_cidade varchar(30),
+longitude_cidade varchar(30),
+primary key (id_cidade)
+)
+* 
+* ﻿insert into cidade (nome_cidade, latitude_cidade, longitude_cidade) values ('São Gabriel','-30.3345289','-54.9343841')
+ * 
  */
 public class Cidade {
     
@@ -16,7 +28,14 @@ public class Cidade {
     private String latitude;
     private String longitude;
 
+    public Cidade(int id, String nome, String lagitude, String longitude){
+        this.id = id;
+        this.nome = nome;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
     
+    public Cidade(){}
     
     /**
      * @return the id
