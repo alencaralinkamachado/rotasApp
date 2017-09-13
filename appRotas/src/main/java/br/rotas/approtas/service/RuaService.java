@@ -38,6 +38,10 @@ import org.w3c.dom.NodeList;
             }
         }
         
+         public ArrayList<Rua> getRuasCidade(int idCidade) throws Exception{
+             System.out.println("dentro do service getRuasCidade");
+            return dao.getRuasCidade(idCidade);
+        }
         
         public ArrayList<Rua> getRuas() throws Exception{
             return dao.getRuas();

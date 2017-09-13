@@ -58,6 +58,28 @@ public class RuaDAO {
 		return retorno;
     }
     
+    public ArrayList<Rua> getRuasCidade(int idCidade) throws Exception{
+        ArrayList<Rua> ruas = new ArrayList<>();
+        
+        	
+		conn = ConectaBDPostgres.getConexao();
+		stmt = conn.prepareStatement("select * from rua r, cidade c where r.id_cidade = "+idCidade);
+		res = stmt.executeQuery();		
+                
+                
+		//id_unidade, id_material, id_origem, ent_validade, ent_qtd, ent_data
+		while(res.next()){
+			Rua rua = new Rua();
+                        rua.setId(res.getInt("idrua"));
+                        rua.setNome(res.getString("nome_rua"));                        
+                        rua.setCidade(null);
+                        ruas.add(rua);                        
+		}
+                System.out.println("vai retornar as ruas da cidade ..");
+        
+        return ruas;
+    }
+    
     public ArrayList<Rua> getRuas() throws Exception{
         ArrayList<Rua> ruas = new ArrayList<>();
         
