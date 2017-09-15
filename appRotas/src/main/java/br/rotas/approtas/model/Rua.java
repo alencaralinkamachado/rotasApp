@@ -25,6 +25,10 @@ public class Rua {
         cidade.setId(idCidade);
     }
     
+    public Rua(int id){
+        this.id = id;
+    }
+    
     public Rua(int id, String nome){
         this.id = id;
         this.nome = nome;

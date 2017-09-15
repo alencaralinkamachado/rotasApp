@@ -7,6 +7,7 @@ package br.rotas.approtas.service;
 
 import br.rotas.approtas.dao.ClienteDAO;
 import br.rotas.approtas.model.Cliente;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,6 +19,10 @@ public class ClienteService {
     
     public boolean inserir(Cliente cliente) throws Exception{
         return dao.inserir(cliente);
+    }
+    
+    public ArrayList<Cliente> getClientes() throws Exception{
+        return dao.getClientes();
     }
     
 }

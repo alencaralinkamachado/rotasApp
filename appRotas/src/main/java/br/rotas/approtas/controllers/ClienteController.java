@@ -8,6 +8,7 @@ package br.rotas.approtas.controllers;
 import br.rotas.approtas.model.Cliente;
 import br.rotas.approtas.service.ClienteService;
 import java.net.URI;
+import java.util.ArrayList;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,12 @@ public class ClienteController {
 	System.out.println("location : "+location.getPath());
 		
 		 return ResponseEntity.created(location).build();
+    }
+    
+    @RequestMapping(value = "clientes", method = RequestMethod.GET)
+    public ArrayList<Cliente> getClientes() throws Exception{
+        System.out.println("Vai retornar os clientes");
+        return service.getClientes();
     }
     
 }

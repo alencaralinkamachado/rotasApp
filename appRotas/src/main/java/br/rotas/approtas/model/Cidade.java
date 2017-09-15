@@ -35,6 +35,10 @@ public class Cidade {
         this.longitude = longitude;
     }
     
+     public Cidade(int id){
+        this.id = id;        
+    }
+    
     public Cidade(){}
     
     /**

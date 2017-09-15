@@ -5,11 +5,13 @@
  */
 package br.rotas.approtas.dao;
 
+import br.rotas.approtas.model.Cidade;
 import br.rotas.approtas.model.Cliente;
 import br.rotas.approtas.model.Rua;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -50,7 +52,29 @@ public class ClienteDAO {
 			conn.close();
 		}
 	}
-	
+    
+    public ArrayList<Cliente> getClientes() throws Exception{
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+        conn = ConectaBDPostgres.getConexao();
+        
+        stmt = conn.prepareStatement("select * from cliente");
+	res = stmt.executeQuery();
+	while(res.next()){
+        Cliente c = new Cliente();
+            c.setNome(res.getString("nome_cliente"));
+            c.setOndeDeixar(res.getString("ondedeixar_cliente"));
+            c.setRua(new Rua(res.getInt("id_rua_cli")));
+            c.setCidade(new Cidade(res.getInt("id_cidade_cli")));
+            c.setNumero(res.getInt("numero_cliente"));
+            c.setCodCorreio(res.getInt("codcorreio"));
+            c.setLatitude(res.getString("latitude_cliente"));
+            c.setLongitude(res.getString("longitude_cliente")); 
+            clientes.add(c);
+        }
+        fecharConexoes();
+        return clientes;
+    }
+    
     public boolean inserir(Cliente cliente) throws Exception{
         conn = ConectaBDPostgres.getConexao();
 		boolean retorno=false;
