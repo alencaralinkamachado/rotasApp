@@ -76,7 +76,7 @@ public class RuaDAO {
                         ruas.add(rua);                        
 		}
                 System.out.println("vai retornar as ruas da cidade ..");
-        
+        fecharConexoes();
         return ruas;
     }
     
@@ -100,7 +100,7 @@ public class RuaDAO {
                                 res.getString("longitude_cidade")));
                         ruas.add(rua);                        
 		}
-        
+        fecharConexoes();
         return ruas;
     }
     
@@ -121,7 +121,7 @@ public class RuaDAO {
                         rua.setCidade(cidade);
                         ruasTemp.add(rua);                        
 		}
-        
+        fecharConexoes();
         return ruasTemp;
     }
     
