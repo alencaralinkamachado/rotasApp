@@ -63,7 +63,8 @@ public class RuaDAO {
         
         	
 		conn = ConectaBDPostgres.getConexao();
-		stmt = conn.prepareStatement("select * from rua r, cidade c where r.id_cidade = "+idCidade);
+		stmt = conn.prepareStatement("select * from rua r, cidade c where r.id_cidade = '"+idCidade+"' order by r.nome_rua");
+                //stmt.setInt(1, idCidade);
 		res = stmt.executeQuery();		
                 
                 

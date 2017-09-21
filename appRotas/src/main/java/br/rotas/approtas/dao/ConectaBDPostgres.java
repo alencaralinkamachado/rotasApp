@@ -22,7 +22,7 @@ public class ConectaBDPostgres {
 		try {
 			Class.forName("org.postgresql.Driver");
 		
-			String url ="jdbc:postgresql://200.132.36.170:5432/db_rotas2";
+			String url ="jdbc:postgresql://200.132.36.170:5432/db_rotas2_producao";
                         String user="postgres";
 			String password = "amj!#7";
 			
