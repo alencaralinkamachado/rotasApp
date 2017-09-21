@@ -15,10 +15,9 @@ id_cidade serial,
 nome_cidade varchar(100) not null,
 latitude_cidade varchar(30),
 longitude_cidade varchar(30),
-primary key (id_cidade)
-)
+primary key (id_cidade))
 * 
-* ﻿insert into cidade (nome_cidade, latitude_cidade, longitude_cidade) values ('São Gabriel','-30.3345289','-54.9343841')
+ ﻿insert into cidade (nome_cidade, latitude_cidade, longitude_cidade) values ('São Gabriel','-30.3345289','-54.9343841')
  * 
  */
 public class Cidade {

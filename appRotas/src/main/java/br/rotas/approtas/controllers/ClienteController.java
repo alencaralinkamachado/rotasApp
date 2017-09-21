@@ -44,6 +44,7 @@ public class ClienteController {
         System.out.println("nome "+cliente.getNumero());
         System.out.println("nome "+cliente.getRua().getId());
         System.out.println("nome "+cliente.getCidade().getId());
+        System.out.println("Complemento "+cliente.getComplemento());
                 
         service.inserir(cliente);
         
