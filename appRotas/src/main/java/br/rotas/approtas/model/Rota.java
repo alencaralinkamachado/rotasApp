@@ -25,7 +25,11 @@ public class Rota {
         this.cidade = cidade;
     }
 
-    
+    public Rota(int id, String nome, String img){
+        this.id = id;
+        this.nome = nome;
+        this.img = img;
+    }
  
     public Rota(int id, String nome, Cidade cidade, ArrayList<Cliente> clientes, ArrayList<Funcionario> funcionarios) {
         this.id = id;

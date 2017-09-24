@@ -21,4 +21,8 @@ public class RotaService {
         return dao.getRotasCidade(idCidade);
     }
     
+    public boolean incluirClientesRota(Rota rota)throws Exception{
+        return dao.incluirClientesRota(rota);
+    }
+    
 }

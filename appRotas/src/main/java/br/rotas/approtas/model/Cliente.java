@@ -29,6 +29,12 @@ public class Cliente {
     private String telefone2;
     private String telefone3;
 
+    private Rota rota;
+    
+    public Cliente( int id){
+        this.id = id;
+    }
+    
     public Cliente(int id, String nome, String cpf, String ondeDeixar, Rua rua, Cidade cidade, int numero, int codCorreio, 
             String latitude, String longitude, String email, String complemento, String telefone1, String telefone2, String telefone3) {
         this.id = id;
@@ -46,6 +52,20 @@ public class Cliente {
         this.telefone1 = telefone1;
         this.telefone2 = telefone2;
         this.telefone3 = telefone3;
+    }
+    
+     public Cliente(int id, String nome, String cpf, String ondeDeixar, Rua rua, Cidade cidade, int numero, int codCorreio, String latitude, String longitude, Rota rota) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.ondeDeixar = ondeDeixar;
+        this.rua = rua;
+        this.cidade = cidade;
+        this.numero = numero;
+        this.codCorreio = codCorreio;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.setRota(rota);
     }
     
     public Cliente(int id, String nome, String cpf, String ondeDeixar, Rua rua, Cidade cidade, int numero, int codCorreio, String latitude, String longitude) {
@@ -300,6 +320,20 @@ public class Cliente {
      */
     public void setTelefone3(String telefone3) {
         this.telefone3 = telefone3;
+    }
+
+    /**
+     * @return the rota
+     */
+    public Rota getRota() {
+        return rota;
+    }
+
+    /**
+     * @param rota the rota to set
+     */
+    public void setRota(Rota rota) {
+        this.rota = rota;
     }
     
     
