@@ -7,6 +7,7 @@ package br.rotas.approtas.service;
 
 import br.rotas.approtas.dao.ClienteDAO;
 import br.rotas.approtas.model.Cliente;
+import br.rotas.approtas.model.Rota;
 import java.util.ArrayList;
 
 /**
@@ -26,6 +27,10 @@ public class ClienteService {
     
     public ArrayList<Cliente> getClientes() throws Exception{
         return dao.getClientes();
+    }
+    
+    public ArrayList<Cliente> getClientesPorRota(int rota) throws Exception{
+        return dao.getClientesPorRota(rota);
     }
     
 }

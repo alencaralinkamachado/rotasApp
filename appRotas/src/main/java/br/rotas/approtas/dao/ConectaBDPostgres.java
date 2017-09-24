@@ -24,7 +24,7 @@ public class ConectaBDPostgres {
 		
 			String url ="jdbc:postgresql://+:5432/"+DB_TESTE;
                         String user="postgres";
-			String password = "+";
+			String password = "-S";
 			
 			c = DriverManager.getConnection(url, user, password);
 		} catch (Exception e) { 

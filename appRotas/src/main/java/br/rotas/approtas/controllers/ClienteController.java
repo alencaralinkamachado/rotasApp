@@ -6,10 +6,12 @@
 package br.rotas.approtas.controllers;
 
 import br.rotas.approtas.model.Cliente;
+import br.rotas.approtas.model.Rota;
 import br.rotas.approtas.service.ClienteService;
 import java.net.URI;
 import java.util.ArrayList;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,6 +60,11 @@ public class ClienteController {
     public ArrayList<Cliente> getClientes() throws Exception{
         System.out.println("Vai retornar os clientes");
         return service.getClientes();
+    }
+    
+    @RequestMapping(value = "/clientes/rota/{id}", method = RequestMethod.GET)
+    public ArrayList<Cliente> getClientesPorRota(@PathVariable int id) throws Exception{
+        return service.getClientesPorRota(id);
     }
     
 }
