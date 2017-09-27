@@ -161,11 +161,17 @@ public class ClienteDAO {
 
     public boolean inserir(Cliente cliente) throws Exception {
         conn = ConectaBDPostgres.getConexao();
+        System.out.println("cpf cliente "+cliente.getCpf());
+        System.out.println("email "+cliente.getEmail());
+        System.out.println("tel 1."+cliente.getTelefone1());
+        System.out.println("tel 2."+cliente.getTelefone2());
+        System.out.println("tel 3."+cliente.getTelefone3());
         try {
-            String sql = "insert into cliente (nome_cliente, ondedeixar_cliente, id_rua_cli, id_cidade_cli, numero_cliente, codcorreio, latitude_cliente, longitude_cliente, complemento_cliente) "
-                    + " values(?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+            String sql = "insert into cliente (nome_cliente, ondedeixar_cliente, id_rua_cli, id_cidade_cli, numero_cliente, codcorreio, latitude_cliente, longitude_cliente, complemento_cliente, id_rota_cliente, "
+                    + " cpf_cliente, email_cliente, telefone1_cliente, telefone2_cliente, telefone3_cliente) "
+                    + " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, cliente.getNome());
+            stmt.setString(1, cliente.getNome().trim());
             stmt.setString(2, cliente.getOndeDeixar());
             stmt.setInt(3, cliente.getRua().getId());
             stmt.setInt(4, cliente.getCidade().getId());
@@ -174,6 +180,12 @@ public class ClienteDAO {
             stmt.setString(7, cliente.getLatitude());
             stmt.setString(8, cliente.getLongitude());
             stmt.setString(9, cliente.getComplemento());
+            stmt.setInt(10, cliente.getRota().getId());
+            stmt.setString(11, cliente.getCpf());
+            stmt.setString(12, cliente.getEmail());
+            stmt.setString(13, cliente.getTelefone1());
+            stmt.setString(14, cliente.getTelefone2());
+            stmt.setString(15, cliente.getTelefone3());
 
             if (stmt.executeUpdate() > 0) {
                 fecharConexoes();
