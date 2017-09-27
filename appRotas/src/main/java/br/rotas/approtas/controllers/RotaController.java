@@ -59,4 +59,13 @@ public class RotaController {
         }
     } 
     
+    @RequestMapping(value = "/rota/clientes/update", method = RequestMethod.POST)
+    public ResponseEntity<?> alteraClientesRota(@RequestBody Rota rota) throws Exception{
+        if(service.alteraClientesRota(rota)){
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.unprocessableEntity().build();
+        }
+    } 
+    
 }

@@ -62,16 +62,23 @@ public class ClienteDAO {
         }
     }
 
-    public boolean autalizaCoordenadas(Cliente c) throws Exception {
+    public boolean autalizaCoordenadasRota(Cliente c) throws Exception {
         conn = ConectaBDPostgres.getConexao();
         try {
-            String sql = "UPDATE cliente SET latitude_cliente = ?, longitude_cliente = ? WHERE id_cliente = " + c.getId();
+            String sql = "UPDATE cliente SET latitude_cliente = ?, longitude_cliente = ?, id_rota_cliente =? WHERE id_cliente = " + c.getId();
 
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, c.getLatitude());
             stmt.setString(2, c.getLongitude());
+            stmt.setInt(3, c.getRota().getId());
 
             if (stmt.executeUpdate() > 0) {
+                
+                stmt = conn.prepareStatement("UPDATE rotacliente set id_rota = ? where id_cliente = ?");
+                //﻿update rotacliente set id_rota = 2 where id_cliente = 272
+                stmt.setInt(1, c.getRota().getId());
+                stmt.setInt(2, c.getId());
+                stmt.executeUpdate();
                 fecharConexoes();
                 return true;
             }

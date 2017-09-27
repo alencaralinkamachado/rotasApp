@@ -17,8 +17,8 @@ import java.util.ArrayList;
 public class ClienteService {
     private static final ClienteDAO dao = new ClienteDAO();
     
-    public boolean autalizaCoordenadas(Cliente cli) throws Exception{
-        return dao.autalizaCoordenadas(cli);
+    public boolean autalizaCoordenadasRota(Cliente cli) throws Exception{
+        return dao.autalizaCoordenadasRota(cli);
     }
     
     public boolean inserir(Cliente cliente) throws Exception{

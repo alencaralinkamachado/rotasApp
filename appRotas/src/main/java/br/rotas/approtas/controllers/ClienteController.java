@@ -28,9 +28,10 @@ public class ClienteController {
     
     private static final ClienteService service = new ClienteService();
     
-    @RequestMapping(value = "atualizalatlng", method = RequestMethod.POST)
-    public ResponseEntity<?> autalizaCoordenadas(@RequestBody Cliente cliente) throws Exception{
-        if (service.autalizaCoordenadas(cliente)){
+    @RequestMapping(value = "atualizalatlngrota", method = RequestMethod.POST)
+    public ResponseEntity<?> autalizaCoordenadasRota(@RequestBody Cliente cliente) throws Exception{
+        System.out.println("Rota autalizada ... "+cliente.getRota().getId());
+        if (service.autalizaCoordenadasRota(cliente)){
             return ResponseEntity.ok().build();
         }else{
             return ResponseEntity.unprocessableEntity().build();

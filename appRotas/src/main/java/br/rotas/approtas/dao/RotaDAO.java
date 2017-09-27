@@ -104,5 +104,35 @@ public class RotaDAO {
             fecharConexoes();
         }
     }
+    
+    public boolean alterarClientesRota(Rota rota) throws Exception {
+        try {
+                
+            conn = ConectaBDPostgres.getConexao();
+
+            System.out.println("Serão Alterados os clientes abaixo na rota " + rota.getId());
+            for (Cliente c : rota.getClientes()) {
+                stmt = conn.prepareStatement("UPDATE rotacliente set id_rota = ? where id_cliente = ?");
+                stmt.setInt(1, rota.getId());
+                stmt.setInt(2, c.getId());
+                
+                System.out.println("sql:"+stmt.toString());
+                if(stmt.executeUpdate() > 0){
+                    
+                    stmt = conn.prepareStatement("UPDATE cliente set id_rota_cliente = ? where id_cliente = ?");
+                    stmt.setInt(1, rota.getId());
+                    stmt.setInt(2, c.getId());
+                    stmt.executeUpdate();
+                }
+   
+                
+            }
+            fecharConexoes();
+            return true;
+        } finally {
+            System.out.println("Excecao ... vamos fechar a conexao antes de propaga-la");
+            fecharConexoes();
+        }
+    }
 
 }

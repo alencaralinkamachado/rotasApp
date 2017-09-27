@@ -25,4 +25,8 @@ public class RotaService {
         return dao.incluirClientesRota(rota);
     }
     
+    public boolean alteraClientesRota(Rota rota) throws Exception{
+        return dao.alterarClientesRota(rota);
+    }
+    
 }
