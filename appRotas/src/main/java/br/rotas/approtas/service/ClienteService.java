@@ -29,6 +29,10 @@ public class ClienteService {
         return dao.getClientes();
     }
     
+    public Cliente getCliente( int id) throws Exception{
+        return dao.getCliente(id);
+    }
+    
     public ArrayList<Cliente> getClientesPorRota(int rota) throws Exception{
         return dao.getClientesPorRota(rota);
     }

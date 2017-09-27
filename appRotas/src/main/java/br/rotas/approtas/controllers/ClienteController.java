@@ -68,4 +68,8 @@ public class ClienteController {
         return service.getClientesPorRota(id);
     }
     
+    @RequestMapping(value = "/cliente/{id}", method = RequestMethod.GET)
+    public Cliente getCliente(@PathVariable int id) throws Exception{
+        return service.getCliente(id);
+    }
 }

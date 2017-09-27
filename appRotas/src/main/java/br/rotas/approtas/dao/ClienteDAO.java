@@ -90,6 +90,42 @@ public class ClienteDAO {
             fecharConexoes();
         }
     }
+    
+    public Cliente getCliente(int id) throws Exception{
+        Cliente c = new Cliente();
+        
+        conn = ConectaBDPostgres.getConexao();
+        try{
+            stmt = conn.prepareStatement("SELECT * FROM cliente c, rua r, rota ro WHERE c.id_rua_cli = r.idrua and ro.id_rota = c.id_rota_cliente and c.id_cliente = ?");
+            stmt.setInt(1, id);
+            
+            res = stmt.executeQuery();
+            while(res.next()){
+                
+                c.setId(res.getInt("id_cliente"));
+                c.setNome(res.getString("nome_cliente"));
+                c.setOndeDeixar(res.getString("ondedeixar_cliente"));
+                c.setRua(new Rua(res.getInt("id_rua_cli"), res.getString("nome_rua")));
+                c.setCidade(new Cidade(res.getInt("id_cidade_cli")));
+                c.setNumero(res.getInt("numero_cliente"));
+                c.setCodCorreio(res.getInt("codcorreio"));
+                c.setLatitude(res.getString("latitude_cliente"));
+                c.setLongitude(res.getString("longitude_cliente"));
+                c.setEmail(res.getString("email_cliente"));
+                c.setComplemento(res.getString("complemento_cliente"));
+                c.setTelefone1(res.getString("telefone1_cliente"));
+                c.setTelefone2(res.getString("telefone2_cliente"));
+                c.setTelefone3(res.getString("telefone3_cliente"));
+                c.setRota(new Rota(res.getInt("id_rota_cliente"), res.getString("nome_rota"), res.getString("img_rota")));
+                
+            }
+        }finally{
+             System.out.println("Excecao ... vamos fechar a conexao antes de propaga-la");
+            fecharConexoes();
+        }
+        
+        return c;
+    }
 
     public ArrayList<Cliente> getClientesPorRota(int rota) throws Exception{
         ArrayList<Cliente> clientes = new ArrayList<>();
