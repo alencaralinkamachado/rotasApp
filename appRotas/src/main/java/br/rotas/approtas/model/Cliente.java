@@ -28,6 +28,7 @@ public class Cliente {
     private String telefone1;
     private String telefone2;
     private String telefone3;
+    private boolean ativo;
 
     private Rota rota;
     
@@ -334,6 +335,20 @@ public class Cliente {
      */
     public void setRota(Rota rota) {
         this.rota = rota;
+    }
+
+    /**
+     * @return the ativo
+     */
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    /**
+     * @param ativo the ativo to set
+     */
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
     
     

@@ -116,6 +116,7 @@ public class ClienteDAO {
                 c.setTelefone1(res.getString("telefone1_cliente"));
                 c.setTelefone2(res.getString("telefone2_cliente"));
                 c.setTelefone3(res.getString("telefone3_cliente"));
+                c.setCidade(new Cidade(1, "São Gabriel", "null", "null"));
                 c.setRota(new Rota(res.getInt("id_rota_cliente"), res.getString("nome_rota"), res.getString("img_rota")));
                 
             }
