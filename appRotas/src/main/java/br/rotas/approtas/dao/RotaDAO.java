@@ -10,14 +10,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-/**
+/*
  *
  * @author alencarmachado
  *
- * ﻿create table rota( id_rota serial, nome_rota varchar(40) not null,
- * id_cidade_rota integer references cliente(id_cliente), img_rota varchar(20),
- * primary key(id_rota) ) ﻿insert into rota (nome_rota, id_cidade_rota,
- * img_rota) values ('Rota C',1,'markerPink');  *
+  ﻿create table rota( 
+    id_rota serial, 
+    nome_rota varchar(40) not null,
+    id_cidade_rota integer references cidade(id_cidade), 
+    img_rota varchar(20),
+  	primary key(id_rota) ) 
+  
+﻿﻿insert into rota (nome_rota, id_cidade_rota,  img_rota) values ('Rota 1',1,'markerPink');
+insert into rota (nome_rota, id_cidade_rota,  img_rota) values ('Rota 2',1,'markerAzure');
+insert into rota (nome_rota, id_cidade_rota,  img_rota) values ('Rota 3',1,'markerVerde');
+insert into rota (nome_rota, id_cidade_rota,  img_rota) values ('Rota 4',1,'markerSolidBack');;  *
  
  
   
