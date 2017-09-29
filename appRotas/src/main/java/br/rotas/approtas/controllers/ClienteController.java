@@ -38,6 +38,15 @@ public class ClienteController {
         }
     }
     
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<?> update(@RequestBody Cliente cliente) throws Exception{
+        if(service.update(cliente)){
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.unprocessableEntity().build();
+        }
+    }
+    
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> inserir(@RequestBody Cliente cliente) throws Exception{
         

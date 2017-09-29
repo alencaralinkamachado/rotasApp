@@ -37,4 +37,8 @@ public class ClienteService {
         return dao.getClientesPorRota(rota);
     }
     
+   public boolean update(Cliente cliente) throws Exception{
+       return dao.update(cliente);
+   }
+    
 }

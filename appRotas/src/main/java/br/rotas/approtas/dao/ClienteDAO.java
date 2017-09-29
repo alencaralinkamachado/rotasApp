@@ -43,6 +43,9 @@ import java.util.ArrayList;
  ﻿ALTER TABLE cliente
 ADD id_rota_clinete integer references rota(id_rota) 
   
+  ALTER TABLE cliente
+ADD ativo boolean  
+   
  *
  */
 public class ClienteDAO {
@@ -107,6 +110,7 @@ public class ClienteDAO {
                 c.setOndeDeixar(res.getString("ondedeixar_cliente"));
                 c.setRua(new Rua(res.getInt("id_rua_cli"), res.getString("nome_rua")));
                 c.setCidade(new Cidade(res.getInt("id_cidade_cli")));
+                c.setCpf(res.getString("cpf_cliente"));
                 c.setNumero(res.getInt("numero_cliente"));
                 c.setCodCorreio(res.getInt("codcorreio"));
                 c.setLatitude(res.getString("latitude_cliente"));
@@ -196,6 +200,59 @@ public class ClienteDAO {
         }
     }
 
+    public boolean update(Cliente cliente) throws Exception{
+        conn = ConectaBDPostgres.getConexao();
+        try{
+           String sql = "UPDATE cliente set nome_cliente =?, "
+                   + " ondedeixar_cliente =?,"
+                   + " id_rua_cli = ?, "
+                   + " id_cidade_cli = ?, "
+                   + " numero_cliente = ?, "
+                   + " codcorreio = ?, "
+                   + " latitude_cliente = ?, "
+                   + " longitude_cliente = ?, "
+                   + " complemento_cliente = ?, "
+                   + " id_rota_cliente =?, "
+                   + " cpf_cliente = ?, "
+                   + " email_cliente =?, "
+                   + " telefone1_cliente =?, "
+                   + " telefone2_cliente =?, "
+                   + " telefone3_cliente= ?,"
+                   + " ativo = ? "
+                   + " WHERE id_cliente = ? ";
+                
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, cliente.getNome());
+            stmt.setString(2, cliente.getOndeDeixar());
+            stmt.setInt(3, cliente.getRua().getId());
+            stmt.setInt(4, cliente.getCidade().getId());
+            stmt.setInt(5, cliente.getNumero());
+            stmt.setInt(6, cliente.getCodCorreio());
+            stmt.setString(7, cliente.getLatitude());
+            stmt.setString(8, cliente.getLongitude());
+            stmt.setString(9, cliente.getComplemento());
+            stmt.setInt(10, cliente.getRota().getId());
+            stmt.setString(11, cliente.getCpf());
+            stmt.setString(12, cliente.getEmail());
+            stmt.setString(13, cliente.getTelefone1());
+            stmt.setString(14, cliente.getTelefone2());
+            stmt.setString(15, cliente.getTelefone3());
+            stmt.setBoolean(16, true);
+            stmt.setInt(17, cliente.getId());
+            System.out.println("sql: "+stmt.toString());
+            if (stmt.executeUpdate() > 0) {
+                fecharConexoes();
+                return true;
+            }
+             
+          fecharConexoes();
+          return false;
+        } finally {
+            System.out.println("Excecao ... vamos fechar a conexao antes de propaga-la");
+            fecharConexoes();
+        }
+    }
+    
     public boolean inserir(Cliente cliente) throws Exception {
         conn = ConectaBDPostgres.getConexao();
         System.out.println("cpf cliente "+cliente.getCpf());
