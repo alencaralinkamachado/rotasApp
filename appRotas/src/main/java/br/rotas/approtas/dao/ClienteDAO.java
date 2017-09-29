@@ -74,14 +74,15 @@ public class ClienteDAO {
             stmt.setString(1, c.getLatitude());
             stmt.setString(2, c.getLongitude());
             stmt.setInt(3, c.getRota().getId());
-
+            System.out.println(stmt.toString());
             if (stmt.executeUpdate() > 0) {
                 
                 stmt = conn.prepareStatement("UPDATE rotacliente set id_rota = ? where id_cliente = ?");
                 //﻿update rotacliente set id_rota = 2 where id_cliente = 272
                 stmt.setInt(1, c.getRota().getId());
                 stmt.setInt(2, c.getId());
-                stmt.executeUpdate();
+                System.out.println(stmt.toString());
+                stmt.executeUpdate();                
                 fecharConexoes();
                 return true;
             }
@@ -89,7 +90,7 @@ public class ClienteDAO {
             fecharConexoes();
             return false;
         } finally {
-            System.out.println("Excecao ... vamos fechar a conexao antes de propaga-la");
+            System.out.println(" autalizaCoordenadasRota ... vamos fechar a conexao antes de propaga-la");
             fecharConexoes();
         }
     }
@@ -125,10 +126,10 @@ public class ClienteDAO {
                 
             }
         }finally{
-             System.out.println("Excecao ... vamos fechar a conexao antes de propaga-la");
+             System.out.println("getCliente ... vamos fechar a conexao antes de propaga-la");
             fecharConexoes();
         }
-        
+        System.out.println("get cliente nome: "+c.getNome()+" cpf: "+c.getCpf());
         return c;
     }
 
@@ -160,7 +161,7 @@ public class ClienteDAO {
                 clientes.add(c);
             }
         }finally{
-             System.out.println("Excecao ... vamos fechar a conexao antes de propaga-la");
+             System.out.println("getClientesPorRota ... vamos fechar a conexao antes de propaga-la");
             fecharConexoes();
         }
         return clientes;
@@ -195,7 +196,7 @@ public class ClienteDAO {
             fecharConexoes();
             return clientes;
         } finally {
-            System.out.println("Excecao ... vamos fechar a conexao antes de propaga-la");
+            System.out.println("getClientes ... vamos fechar a conexao antes de propaga-la");
             fecharConexoes();
         }
     }
@@ -248,7 +249,7 @@ public class ClienteDAO {
           fecharConexoes();
           return false;
         } finally {
-            System.out.println("Excecao ... vamos fechar a conexao antes de propaga-la");
+            System.out.println("update ciente ... vamos fechar a conexao antes de propaga-la");
             fecharConexoes();
         }
     }
@@ -280,7 +281,7 @@ public class ClienteDAO {
             stmt.setString(13, cliente.getTelefone1());
             stmt.setString(14, cliente.getTelefone2());
             stmt.setString(15, cliente.getTelefone3());
-
+            System.out.println(stmt.toString());
             if (stmt.executeUpdate() > 0) {
                 fecharConexoes();
                 return true;
@@ -289,7 +290,7 @@ public class ClienteDAO {
             fecharConexoes();
             return false;
         } finally {
-            System.out.println("Excecao ... vamos fechar a conexao antes de propaga-la");
+            System.out.println("inserir cliente ... vamos fechar a conexao antes de propaga-la");
             fecharConexoes();
         }
     }

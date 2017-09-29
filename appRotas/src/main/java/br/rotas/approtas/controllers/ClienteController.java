@@ -38,7 +38,7 @@ public class ClienteController {
         }
     }
     
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(value = "update", method = RequestMethod.POST)
     public ResponseEntity<?> update(@RequestBody Cliente cliente) throws Exception{
         if(service.update(cliente)){
             return ResponseEntity.ok().build();
