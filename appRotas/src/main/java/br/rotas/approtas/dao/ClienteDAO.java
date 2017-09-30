@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -45,7 +47,8 @@ ADD id_rota_clinete integer references rota(id_rota)
   
   ALTER TABLE cliente
 ADD ativo boolean  
-   
+  
+  ﻿ALTER TABLE cliente ADD movimentacao timestamp 
  *
  */
 public class ClienteDAO {
@@ -53,7 +56,12 @@ public class ClienteDAO {
     private Connection conn;
     private PreparedStatement stmt;
     private ResultSet res;
-
+    private Calendar calendar = Calendar.getInstance();
+    
+      public ClienteDAO(){
+       
+      }
+    
     private void fecharConexoes() throws Exception {
         if (res != null) {
             res.close();
@@ -66,14 +74,17 @@ public class ClienteDAO {
     }
 
     public boolean autalizaCoordenadasRota(Cliente c) throws Exception {
+        
         conn = ConectaBDPostgres.getConexao();
         try {
-            String sql = "UPDATE cliente SET latitude_cliente = ?, longitude_cliente = ?, id_rota_cliente =? WHERE id_cliente = " + c.getId();
+            String sql = "UPDATE cliente SET latitude_cliente = ?, longitude_cliente = ?, id_rota_cliente =?, movimentacao =? WHERE id_cliente = " + c.getId();
 
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, c.getLatitude());
-            stmt.setString(2, c.getLongitude());
+            stmt.setString(2, c.getLongitude());            
             stmt.setInt(3, c.getRota().getId());
+            calendar.setTime(new Date());
+            stmt.setTimestamp(4, new java.sql.Timestamp(calendar.getTimeInMillis()));
             System.out.println(stmt.toString());
             if (stmt.executeUpdate() > 0) {
                 
@@ -121,6 +132,7 @@ public class ClienteDAO {
                 c.setTelefone1(res.getString("telefone1_cliente"));
                 c.setTelefone2(res.getString("telefone2_cliente"));
                 c.setTelefone3(res.getString("telefone3_cliente"));
+                c.setAtivo(res.getBoolean("ativo"));
                 c.setCidade(new Cidade(1, "São Gabriel", "null", "null"));
                 c.setRota(new Rota(res.getInt("id_rota_cliente"), res.getString("nome_rota"), res.getString("img_rota")));
                 
@@ -190,6 +202,8 @@ public class ClienteDAO {
                 c.setTelefone1(res.getString("telefone1_cliente"));
                 c.setTelefone2(res.getString("telefone2_cliente"));
                 c.setTelefone3(res.getString("telefone3_cliente"));
+                c.setCpf(res.getString("cpf_cliente"));
+                c.setAtivo(res.getBoolean("ativo"));
                 c.setRota(new Rota(res.getInt("id_rota_cliente"), res.getString("nome_rota"), res.getString("img_rota")));
                 clientes.add(c);
             }
@@ -219,7 +233,8 @@ public class ClienteDAO {
                    + " telefone1_cliente =?, "
                    + " telefone2_cliente =?, "
                    + " telefone3_cliente= ?,"
-                   + " ativo = ? "
+                   + " ativo = ?,"
+                   + " movimentacao = ? "
                    + " WHERE id_cliente = ? ";
                 
             stmt = conn.prepareStatement(sql);
@@ -238,8 +253,11 @@ public class ClienteDAO {
             stmt.setString(13, cliente.getTelefone1());
             stmt.setString(14, cliente.getTelefone2());
             stmt.setString(15, cliente.getTelefone3());
-            stmt.setBoolean(16, true);
-            stmt.setInt(17, cliente.getId());
+            stmt.setBoolean(16, cliente.isAtivo());        
+            calendar.setTime(new Date());
+            stmt.setTimestamp(17, new java.sql.Timestamp(calendar.getTimeInMillis()));
+            stmt.setInt(18, cliente.getId());
+            //﻿SELECT * FROM cliente WHERE movimentacao >= '2017-09-29 21:57:00'
             System.out.println("sql: "+stmt.toString());
             if (stmt.executeUpdate() > 0) {
                 fecharConexoes();
@@ -263,8 +281,8 @@ public class ClienteDAO {
         System.out.println("tel 3."+cliente.getTelefone3());
         try {
             String sql = "insert into cliente (nome_cliente, ondedeixar_cliente, id_rua_cli, id_cidade_cli, numero_cliente, codcorreio, latitude_cliente, longitude_cliente, complemento_cliente, id_rota_cliente, "
-                    + " cpf_cliente, email_cliente, telefone1_cliente, telefone2_cliente, telefone3_cliente) "
-                    + " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+                    + " cpf_cliente, email_cliente, telefone1_cliente, telefone2_cliente, telefone3_cliente, ativo, movimentacao) "
+                    + " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, cliente.getNome().trim());
             stmt.setString(2, cliente.getOndeDeixar());
@@ -281,6 +299,9 @@ public class ClienteDAO {
             stmt.setString(13, cliente.getTelefone1());
             stmt.setString(14, cliente.getTelefone2());
             stmt.setString(15, cliente.getTelefone3());
+            stmt.setBoolean(16, cliente.isAtivo());
+            calendar.setTime(new Date());
+            stmt.setTimestamp(17, new java.sql.Timestamp(calendar.getTimeInMillis()));
             System.out.println(stmt.toString());
             if (stmt.executeUpdate() > 0) {
                 fecharConexoes();
