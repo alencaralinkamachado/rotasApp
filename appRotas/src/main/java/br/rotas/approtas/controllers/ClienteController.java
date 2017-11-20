@@ -6,6 +6,7 @@
 package br.rotas.approtas.controllers;
 
 import br.rotas.approtas.model.Cliente;
+import br.rotas.approtas.model.RetornoHttp;
 import br.rotas.approtas.model.Rota;
 import br.rotas.approtas.service.ClienteService;
 import java.net.URI;
@@ -27,6 +28,23 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class ClienteController {
     
     private static final ClienteService service = new ClienteService();
+    
+    
+    @RequestMapping(value = "clienteRotaMobile", method = RequestMethod.POST)
+    public RetornoHttp clienteRotaMobile(@RequestBody ArrayList<Cliente> clientes) throws Exception{
+        System.out.println("qtd de clientes: "+clientes.size());
+        try{
+           for(Cliente c : clientes){
+               System.out.println("Nome: "+c.getNome());
+               System.out.println("foto: "+c.getFoto());
+                service.updateMobile(c);
+        } 
+        }catch(Exception e){
+            return new RetornoHttp(e.getMessage(), "erro");
+        }
+   
+           return new RetornoHttp("tudo certo", "ok");     
+    }
     
     @RequestMapping(value = "atualizalatlngrota", method = RequestMethod.POST)
     public ResponseEntity<?> autalizaCoordenadasRota(@RequestBody Cliente cliente) throws Exception{
@@ -64,6 +82,14 @@ public class ClienteController {
 	System.out.println("location : "+location.getPath());
 		
 		 return ResponseEntity.created(location).build();
+    }
+    
+    
+    
+    @RequestMapping(value = "clientesMobile", method = RequestMethod.GET)
+    public ArrayList<Cliente> getClientesMobile() throws Exception{
+        System.out.println("Vai retornar os clientes");
+        return service.getClientesMobile();
     }
     
     @RequestMapping(value = "clientes", method = RequestMethod.GET)

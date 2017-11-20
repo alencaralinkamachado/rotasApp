@@ -23,6 +23,10 @@ public class CargaTrackEntregas {
     public static void main(String args[]) {
        
     }
+    
+    private String filePc = "/Users/alencarmachado/Dropbox/Public/morga/sistemaRota/rotasSaoGabriel";
+    private String fileServer = "/opt/tracks";
+    private String file = this.filePc+"/POLAR_Fabiano_Alencar+Machado_Machado_2017-10-04_16-16-04.gpx";
 
     public Polyline polyEverton() {
 
@@ -32,18 +36,18 @@ public class CargaTrackEntregas {
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse("/Users/alencarmachado/Dropbox/Public/morga/sistemaRota/rotasSaoGabriel/POLAR-Everton_Alencar+Machado_Machado_2017-10-06_04-34-14.gpx");
+            Document document = builder.parse(this.filePc+"/POLAR_Fabiano_Alencar+Machado_Machado_2017-10-04_16-16-04.gpx");
 
             Element nodes = document.getDocumentElement();
 
             NodeList trkpts = document.getElementsByTagName("trkpt");
-            System.out.println("tbm trkpts: " + trkpts.getLength());
+            //System.out.println("tbm trkpts: " + trkpts.getLength());
             for (int i = 0; i < trkpts.getLength(); i++) {
                 Element trkpt = (Element) trkpts.item(i);
 
-                System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
+               // System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
 
-                System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
+                //System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
                 Track track = new Track(i, Double.parseDouble(trkpt.getAttribute("lat")), Double.parseDouble(trkpt.getAttribute("lon")));
                 traks.add(track);
                  
@@ -63,18 +67,18 @@ public class CargaTrackEntregas {
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse("/Users/alencarmachado/Dropbox/Public/morga/sistemaRota/rotasSaoGabriel/POLAR-Rota-Dirceu_paulo-Alencar+Machado_Machado_2017-10-06_15-30-15.gpx");
+            Document document = builder.parse(this.filePc+"/POLAR-Rota-Dirceu_paulo-Alencar+Machado_Machado_2017-10-06_15-30-15.gpx");
 
             Element nodes = document.getDocumentElement();
 
             NodeList trkpts = document.getElementsByTagName("trkpt");
-            System.out.println("tbm trkpts: " + trkpts.getLength());
+            //System.out.println("tbm trkpts: " + trkpts.getLength());
             for (int i = 0; i < trkpts.getLength(); i++) {
                 Element trkpt = (Element) trkpts.item(i);
 
-                System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
+              //  System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
 
-                System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
+               // System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
                 Track track = new Track(i, Double.parseDouble(trkpt.getAttribute("lat")), Double.parseDouble(trkpt.getAttribute("lon")));
                 traks.add(track);
                 /*  for(int j = 0; j < way.getElementsByTagName("tag").getLength(); j++){
@@ -126,18 +130,51 @@ public class CargaTrackEntregas {
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse("/Users/alencarmachado/Dropbox/Public/morga/sistemaRota/rotasSaoGabriel/POLAR-Rota-Dirceu_paulo-Alencar+Machado_Machado_2017-10-06_15-30-15.gpx");
+            Document document = builder.parse(this.filePc+"/POLAR-Rota-Dirceu_paulo-Alencar+Machado_Machado_2017-10-06_15-30-15.gpx");
 
             Element nodes = document.getDocumentElement();
 
             NodeList trkpts = document.getElementsByTagName("trkpt");
-            System.out.println("tbm trkpts: " + trkpts.getLength());
+            //System.out.println("tbm trkpts: " + trkpts.getLength());
             for (int i = 0; i < trkpts.getLength(); i++) {
                 Element trkpt = (Element) trkpts.item(i);
 
-                System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
+              //  System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
 
-                System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
+              //  System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
+               if(i % 2 == 0){
+                    Track track = new Track(i, Double.parseDouble(trkpt.getAttribute("lat")), Double.parseDouble(trkpt.getAttribute("lon")));                
+                    traks.add(track);
+                }               
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return traks;
+    }
+    
+    
+     public ArrayList<Track> polyLuizTrack() {
+
+        ArrayList<Track> traks = new ArrayList<Track>();
+
+        try {
+
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(this.filePc+"/POLAR_Luiz_Alencar+Machado_Machado_2017-11-11_05-06-31.gpx");
+
+            Element nodes = document.getDocumentElement();
+
+            NodeList trkpts = document.getElementsByTagName("trkpt");
+            //System.out.println("tbm trkpts: " + trkpts.getLength());
+            for (int i = 0; i < trkpts.getLength(); i++) {
+                Element trkpt = (Element) trkpts.item(i);
+
+              //  System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
+
+              //  System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
                if(i % 2 == 0){
                     Track track = new Track(i, Double.parseDouble(trkpt.getAttribute("lat")), Double.parseDouble(trkpt.getAttribute("lon")));                
                     traks.add(track);
@@ -158,19 +195,19 @@ public class CargaTrackEntregas {
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse("/Users/alencarmachado/Dropbox/Public/morga/sistemaRota/rotasSaoGabriel/POLAR_Dirceu_Inicio_Alencar+Machado_Machado_2017-10-04_16-16-04.gpx");
+            Document document = builder.parse(this.filePc+"/POLAR_Fabiano_Alencar+Machado_Machado_2017-10-04_16-16-04.gpx");
 
             Element nodes = document.getDocumentElement();
 
             NodeList trkpts = document.getElementsByTagName("trkpt");
-            System.out.println("tbm trkpts: " + trkpts.getLength());
+            //System.out.println("tbm trkpts: " + trkpts.getLength());
             for (int i = 0; i < trkpts.getLength(); i++) {
                 
                 Element trkpt = (Element) trkpts.item(i);
 
-                System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
+               // System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
 
-                System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
+               // System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
                 if(i % 2 == 0){
                     Track track = new Track(i, Double.parseDouble(trkpt.getAttribute("lat")), Double.parseDouble(trkpt.getAttribute("lon")));                
                     traks.add(track);
@@ -193,19 +230,19 @@ public class CargaTrackEntregas {
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse("/Users/alencarmachado/Dropbox/Public/morga/sistemaRota/rotasSaoGabriel/POLAR_Hilario_Alencar+Machado_Machado_2017-10-04_04-35-53.gpx");
+            Document document = builder.parse(this.filePc+"/POLAR_Hilario_Alencar+Machado_Machado_2017-10-04_04-35-53.gpx");
 
             Element nodes = document.getDocumentElement();
 
             NodeList trkpts = document.getElementsByTagName("trkpt");
-            System.out.println("tbm trkpts: " + trkpts.getLength());
+           // System.out.println("tbm trkpts: " + trkpts.getLength());
             for (int i = 0; i < trkpts.getLength(); i++) {
                 
                 Element trkpt = (Element) trkpts.item(i);
 
-                System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
+              //  System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
 
-                System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
+              //  System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
                 if(i % 2 == 0){
                     Track track = new Track(i, Double.parseDouble(trkpt.getAttribute("lat")), Double.parseDouble(trkpt.getAttribute("lon")));                
                     traks.add(track);
@@ -228,19 +265,19 @@ public class CargaTrackEntregas {
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse("/Users/alencarmachado/Dropbox/Public/morga/sistemaRota/rotasSaoGabriel/POLAR_ELI_Alencar+Machado_Machado_2017-10-05_04-34-20.gpx");
+            Document document = builder.parse(this.filePc+"/POLAR_ELI_Alencar+Machado_Machado_2017-10-05_04-34-20.gpx");
 
             Element nodes = document.getDocumentElement();
 
             NodeList trkpts = document.getElementsByTagName("trkpt");
-            System.out.println("tbm trkpts: " + trkpts.getLength());
+           // System.out.println("tbm trkpts: " + trkpts.getLength());
             for (int i = 0; i < trkpts.getLength(); i++) {
                 
                 Element trkpt = (Element) trkpts.item(i);
 
-                System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
+             //   System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
 
-                System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
+              //  System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
                 if(i % 2 == 0){
                     Track track = new Track(i, Double.parseDouble(trkpt.getAttribute("lat")), Double.parseDouble(trkpt.getAttribute("lon")));                
                     traks.add(track);
@@ -263,19 +300,19 @@ public class CargaTrackEntregas {
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse("/Users/alencarmachado/Dropbox/Public/morga/sistemaRota/rotasSaoGabriel/POLAR-Everton_Alencar+Machado_Machado_2017-10-06_04-34-14.gpx");
+            Document document = builder.parse(this.filePc+"/POLAR-Everton_Alencar+Machado_Machado_2017-10-06_04-34-14.gpx");
 
             Element nodes = document.getDocumentElement();
 
             NodeList trkpts = document.getElementsByTagName("trkpt");
-            System.out.println("tbm trkpts: " + trkpts.getLength());
+           // System.out.println("tbm trkpts: " + trkpts.getLength());
             for (int i = 0; i < trkpts.getLength(); i++) {
                 
                 Element trkpt = (Element) trkpts.item(i);
 
-                System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
+              //  System.out.println("... " + Double.parseDouble(trkpt.getAttribute("lat")));
 
-                System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
+              //  System.out.println("trkpt lat: " + trkpt.getAttribute("lat") + " lng: " + trkpt.getAttribute("lon"));
                 if(i % 2 == 0){
                     Track track = new Track(i, Double.parseDouble(trkpt.getAttribute("lat")), Double.parseDouble(trkpt.getAttribute("lon")));                
                     traks.add(track);

@@ -29,6 +29,7 @@ public class Cliente {
     private String telefone2;
     private String telefone3;
     private boolean ativo;
+    private String foto;
 
     private Rota rota;
     
@@ -37,7 +38,7 @@ public class Cliente {
     }
     
     public Cliente(int id, String nome, String cpf, String ondeDeixar, Rua rua, Cidade cidade, int numero, int codCorreio, 
-            String latitude, String longitude, String email, String complemento, String telefone1, String telefone2, String telefone3) {
+            String latitude, String longitude, String email, String complemento, String telefone1, String telefone2, String telefone3, String foto) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -53,6 +54,7 @@ public class Cliente {
         this.telefone1 = telefone1;
         this.telefone2 = telefone2;
         this.telefone3 = telefone3;
+        this.foto = foto;
     }
     
      public Cliente(int id, String nome, String cpf, String ondeDeixar, Rua rua, Cidade cidade, int numero, int codCorreio, String latitude, String longitude, Rota rota) {
@@ -349,6 +351,20 @@ public class Cliente {
      */
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    /**
+     * @return the foto
+     */
+    public String getFoto() {
+        return foto;
+    }
+
+    /**
+     * @param foto the foto to set
+     */
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
     
     

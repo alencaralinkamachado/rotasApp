@@ -53,6 +53,11 @@ public class TrackRotasEntregaController {
         return new CargaTrackEntregas().polyDirceuTrack();
     }
     
+    @RequestMapping(value = "trackLuiz", method = RequestMethod.GET)
+    public ArrayList<Track> getTrackLuiz(){
+        return new CargaTrackEntregas().polyLuizTrack();
+    }
+    
     @RequestMapping(value = "trackEverton", method = RequestMethod.GET)
     public ArrayList<Track> getTrackEverton(){
         return new CargaTrackEntregas().polyEvertonTrack();

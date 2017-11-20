@@ -29,6 +29,10 @@ public class ClienteService {
         return dao.getClientes();
     }
     
+     public ArrayList<Cliente> getClientesMobile() throws Exception{
+        return dao.getClientesMobile();
+    }
+    
     public Cliente getCliente( int id) throws Exception{
         return dao.getCliente(id);
     }
@@ -39,6 +43,10 @@ public class ClienteService {
     
    public boolean update(Cliente cliente) throws Exception{
        return dao.update(cliente);
+   }
+   
+   public boolean updateMobile(Cliente cliente) throws Exception{
+       return dao.updateMobile(cliente);
    }
     
 }

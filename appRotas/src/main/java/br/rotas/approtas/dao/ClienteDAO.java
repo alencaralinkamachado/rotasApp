@@ -134,6 +134,7 @@ public class ClienteDAO {
                 c.setTelefone3(res.getString("telefone3_cliente"));
                 c.setAtivo(res.getBoolean("ativo"));
                 c.setCidade(new Cidade(1, "São Gabriel", "null", "null"));
+                c.setFoto(res.getString("foto"));
                 c.setRota(new Rota(res.getInt("id_rota_cliente"), res.getString("nome_rota"), res.getString("img_rota")));
                 
             }
@@ -179,6 +180,45 @@ public class ClienteDAO {
         return clientes;
     }
     
+    
+    public ArrayList<Cliente> getClientesMobile() throws Exception {
+        System.out.println("Carregando clientes ...... getClientes da DAO");
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+        conn = ConectaBDPostgres.getConexao();
+        try {
+            stmt = conn.prepareStatement("SELECT * FROM cliente c, rua r, rota ro WHERE c.id_rua_cli = r.idrua and ro.id_rota = c.id_rota_cliente order by c.nome_cliente");
+            res = stmt.executeQuery();
+            while (res.next()) {
+                Cliente c = new Cliente();
+                c.setId(res.getInt("id_cliente"));
+                c.setNome(res.getString("nome_cliente"));
+                c.setOndeDeixar(res.getString("ondedeixar_cliente"));
+                c.setRua(new Rua(res.getInt("id_rua_cli"), res.getString("nome_rua")));
+                //c.setCidade(new Cidade(res.getInt("id_cidade_cli")));
+                c.setNumero(res.getInt("numero_cliente"));
+                //c.setCodCorreio(res.getInt("codcorreio"));
+                c.setLatitude(res.getString("latitude_cliente"));
+                c.setLongitude(res.getString("longitude_cliente"));
+                //c.setEmail(res.getString("email_cliente"));
+                c.setComplemento(res.getString("complemento_cliente"));
+                //c.setTelefone1(res.getString("telefone1_cliente"));
+                //c.setTelefone2(res.getString("telefone2_cliente"));
+               // c.setTelefone3(res.getString("telefone3_cliente"));
+               // c.setCpf(res.getString("cpf_cliente"));
+                c.setAtivo(res.getBoolean("ativo"));
+                //c.setFoto(res.getString("foto"));
+                //c.setRota(new Rota(res.getInt("id_rota_cliente"), res.getString("nome_rota"), res.getString("img_rota")));
+                clientes.add(c);
+            }
+            fecharConexoes();
+            return clientes;
+        } finally {
+            System.out.println("getClientes ... vamos fechar a conexao antes de propaga-la");
+            fecharConexoes();
+        }
+    }
+    
+    
     public ArrayList<Cliente> getClientes() throws Exception {
         System.out.println("Carregando clientes ...... getClientes da DAO");
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
@@ -204,6 +244,7 @@ public class ClienteDAO {
                 c.setTelefone3(res.getString("telefone3_cliente"));
                 c.setCpf(res.getString("cpf_cliente"));
                 c.setAtivo(res.getBoolean("ativo"));
+                //c.setFoto(res.getString("foto"));
                 c.setRota(new Rota(res.getInt("id_rota_cliente"), res.getString("nome_rota"), res.getString("img_rota")));
                 clientes.add(c);
             }
@@ -234,7 +275,8 @@ public class ClienteDAO {
                    + " telefone2_cliente =?, "
                    + " telefone3_cliente= ?,"
                    + " ativo = ?,"
-                   + " movimentacao = ? "
+                   + " movimentacao = ?, "
+                   + " foto = ? "
                    + " WHERE id_cliente = ? ";
                 
             stmt = conn.prepareStatement(sql);
@@ -256,7 +298,8 @@ public class ClienteDAO {
             stmt.setBoolean(16, cliente.isAtivo());        
             calendar.setTime(new Date());
             stmt.setTimestamp(17, new java.sql.Timestamp(calendar.getTimeInMillis()));
-            stmt.setInt(18, cliente.getId());
+            stmt.setString(18, cliente.getFoto());
+            stmt.setInt(19, cliente.getId());
             //﻿SELECT * FROM cliente WHERE movimentacao >= '2017-09-29 21:57:00'
             System.out.println("sql: "+stmt.toString());
             if (stmt.executeUpdate() > 0) {
@@ -268,6 +311,58 @@ public class ClienteDAO {
           return false;
         } finally {
             System.out.println("update ciente ... vamos fechar a conexao antes de propaga-la");
+            fecharConexoes();
+        }
+    }
+
+    
+  
+    public boolean updateMobile(Cliente cliente) throws Exception{
+        conn = ConectaBDPostgres.getConexao();
+        try{
+           String sql = "UPDATE cliente set "
+                   + " latitude_cliente = ?, "
+                   + " longitude_cliente = ?, "
+                   + " movimentacao = ?, "
+                   + " foto = ? "
+                   + " WHERE id_cliente = ? ";
+                
+            stmt = conn.prepareStatement(sql);
+            //stmt.setString(1, cliente.getNome());
+            //stmt.setString(2, cliente.getOndeDeixar());
+            //stmt.setInt(3, cliente.getRua().getId());
+            //stmt.setInt(4, cliente.getCidade().getId());
+            //stmt.setInt(5, cliente.getNumero());
+            //stmt.setInt(6, cliente.getCodCorreio());
+            stmt.setString(1, cliente.getLatitude());
+            stmt.setString(2, cliente.getLongitude());
+            //stmt.setString(9, cliente.getComplemento());
+            //stmt.setInt(10, cliente.getRota().getId());
+            //stmt.setString(11, cliente.getCpf());
+           // stmt.setString(12, cliente.getEmail());
+            //stmt.setString(13, cliente.getTelefone1());
+            //stmt.setString(14, cliente.getTelefone2());
+            //stmt.setString(15, cliente.getTelefone3());
+            //stmt.setBoolean(16, cliente.isAtivo());        
+            calendar.setTime(new Date());
+            stmt.setTimestamp(3, new java.sql.Timestamp(calendar.getTimeInMillis()));
+            stmt.setString(4, cliente.getFoto());
+            stmt.setInt(5, cliente.getId());
+            //﻿SELECT * FROM cliente WHERE movimentacao >= '2017-09-29 21:57:00'
+            System.out.println("sql: "+stmt.toString());
+            if (stmt.executeUpdate() > 0) {
+                fecharConexoes();
+                 System.out.println("vai retornar true");
+                return true;
+            }
+             System.out.println("vai retornar falso");
+          fecharConexoes();
+          return false;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            System.out.println("updateMobile ciente ... vamos fechar a conexao antes de propaga-la");
             fecharConexoes();
         }
     }
