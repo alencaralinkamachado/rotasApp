@@ -15,6 +15,8 @@ public class Track {
     private double lat;
     private double lng;
     
+    public Track(){}
+    
     public Track(int id, double lat, double lng){
         this.id = id;
         this.lat = lat;
