@@ -20,8 +20,8 @@ import org.w3c.dom.NodeList;
  */
 public class CargaTracksEntregasArquivoTCX {
  
-     private String filePc = "/Users/alencarmachado/Dropbox/Public/morga/sistemaRota/rotasSaoGabriel/arquivosTCX/teste1.tcx";
-    
+    private String filePc = "/Users/alencarmachado/Dropbox/Public/morga/sistemaRota/rotasSaoGabriel/arquivosTCX/teste1.tcx";
+    private String fileServer = "/opt/tracks/teste1.tcx";
     public static void main(String args[]){
         new CargaTracksEntregasArquivoTCX().getTcx();
     }
